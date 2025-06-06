@@ -13,7 +13,7 @@
                     <form method="POST" action="http://localhost:1337/api/cars">
                        <input type="text" name="name" class="form-control form-control-sm mb-4 " placeholder="enter your car name"/>
                        <div class= "btn-lg d-grid gap-2">
-                         <input type="submit" value="regiester" class="btn btn-primary " onclick="Palak(event)"/>
+                         <input type="submit" value="regiester" class="btn btn-primary " onclick="sendData(event)"/>
                        </div>
                        
                     </form>
@@ -59,11 +59,42 @@
         
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <script>
-        let palak =(evnt)=>{ // formal argument;
+        function sendData(e){ // formal argument;
             //object.method();
-            evnt.preventDefault(); //camelCase
-            console.log('i am inside palak function');
+            //to stop the reloading
+            e.preventDefault(); //camelCase
+            console.log('i am inside sendData function');
+            // i want to access form data here.....
+            //traversing up
+            console.log(e.target.closest('form'));
+            //traversing down
+            console.log(e.target.closest('form').querySelector('input:first-child').value);
+            
+            //let prepare our payload
+            /*
+            {
+                "data": {
+                "name": "BMW"
+                }
+            }
+            */
+           
+                let jspayload ={
+                    "data": {
+                     "name": "BMW"
+                }
+            };
+            console.log(jspayload);
+            //let ceo1 = new className();
+            var xhr = new XMLHttpRequest();
+            //how to access class method
+            //object.method();
+            xhr.open("POST","http://localhost:1337/api/cars") ;
+            //call the api
+            let json= JSON.stringify(jspayload);
+            xhr.send(json);
         }
+        
     </script>
 </body>
 </html>
