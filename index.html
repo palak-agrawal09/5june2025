@@ -22,10 +22,10 @@
 
             <div class="modal-body" style=" height: 200px;overflow-y: scroll;">
                 <ul class="list-group">
-                    <li class="list-group-item">color</li>
-                    <li class="list-group-item">model year</li>
-                    <li class="list-group-item">Brand</li>
-                    <li class="list-group-item">sitting capacity</li>
+                    <li class="list-group-item">name:-<span id="cname"></span></li>
+                    <li class="list-group-item">color:-<span id="ccolor"></span></li>
+                    <li class="list-group-item">Brand:-<span id="cbrand"></span></li>
+                    <li class="list-group-item">sitting_capacity:-<span id="csitting_capacity"></span></li>
                 </ul>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                         <input autofocus type="text" car_name="name" class="form-control" placeholder="Enter car_name"/>
                         </br>
                         <div class="d-grid mt-3">
-                             <input type="button" class="btn btn-primary" value="Login"  onclick="getOutput(event)" />
+                             <input type="button" class="btn btn-primary" value="regiester"  onclick="getOutput(event)" />
                         </div>
                     </div>
                 </div>
@@ -63,10 +63,13 @@
                         <tr>
                             <td >car1</td>
                             <td>
-                                <input type="hidden"name="brand"value=""/>
-                                <button type="button" onclick="console.log(`User Saved`)" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> View </button>
+                                <input type="hidden" name="name" value="${variable.name}"/>
+                                <input type="hidden" name="color" value="${variable.color}"/>
+                                <input type="hidden" name="sitting_capacity" value="${variable.sitting_capacity}"/>
+                                <input type="hidden" name="brand" value="${variable.brand}"/>
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getElements('HIHI')">View</button>
                                 <button type="button" class="btn btn-info btn-sm" onclick="prompt('Type the Correction') ">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="alert('Info Deleted')">Delete</button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteElement(this)" data-delid=${variable.documentID}>Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -121,7 +124,6 @@
     </script>
 
     <script>
-        // Read operations with Ajax (XMLHttpRequest
         // Open GET request to local Strapi endpoint
 
         xhr.open("GET", `${BASE_URL}/api/details`, true); //by string Interpolation
@@ -161,6 +163,10 @@
             }
         };
           xhr.send();
+          //1.function define s one time processes
+          function getElements(e){ //e is a formal argument 
+            console.log('>>>>>>>>>>>','e');           
+          }
 
         //Function calling 
         //function calling is a one time process
@@ -169,7 +175,7 @@
             const delId = e.getAttribute('data-del-Id');
             //const delId = e.dataset.delId;
              console.log("Delete Id :" , delId)
-            // Send DELETE request to Server
+            // Send delete request to Server
              console.log("I am inside deleteElement Function");
 
             Swal.fire({
@@ -184,7 +190,7 @@
                     if (result.isConfirmed) {
                          xhr.open("DELETE",`${BASE_URL}/api/details/${delId}`); //by string interpolation
                          xhr.send();
-                         e.closest('tr').remove();//to remove the entry from browser
+                         e.closest('tr').remove();
                          console.log("File Is Deleted....!!!");
 
                          Swal.fire({
