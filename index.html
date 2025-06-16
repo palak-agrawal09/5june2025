@@ -31,7 +31,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Okay</button>
+                <button type="button" class="btn btn-primary p_savebtn">Okay</button>
             </div>
             </div>
         </div>
@@ -67,8 +67,8 @@
                                 <input type="hidden" name="color" value="${variable.color}"/>
                                 <input type="hidden" name="sitting_capacity" value="${variable.sitting_capacity}"/>
                                 <input type="hidden" name="brand" value="${variable.brand}"/>
-                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getElements('HIHI')">View</button>
-                                <button type="button" class="btn btn-info btn-sm" onclick="prompt('Type the Correction') ">Edit</button>
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getElements('this')">View</button>
+                                <button type="button" class="btn btn-info btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editCar(this)">Edit</button>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="deleteElement(this)" data-delid=${variable.documentID}>Delete</button>
                             </td>
                         </tr>
@@ -81,6 +81,7 @@
     <script>
         let BASE_URL ="http://localhost:1337"; //to avoid repeatation of code (DRY Principle)
         var xhr = new XMLHttpRequest();
+         
 
         // Function definition - called on form submission
         function getOutput(e) {
@@ -103,7 +104,7 @@
             // Open POST request to local Strapi endpoint
             xhr.open("POST", `${BASE_URL}/api/details`, true);
 
-            xhr.setRequestHeader("Content-Type", "application/json"); // Set content type header
+             // Set content type header
 
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4 && (this.status == 201 || this.status == 200)) {
@@ -114,7 +115,6 @@
                     });
                 }
             };
-
             // Send data to Strapi
             xhr.send(data);
 
@@ -122,14 +122,13 @@
              console.log("cars Stored successfully");
         } 
     </script>
-
     <script>
-        // Open GET request to local Strapi endpoint
+        // Open GET request to local Strapi endpoint 
 
         xhr.open("GET", `${BASE_URL}/api/details`, true); //by string Interpolation
 
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+        xhr.onreadystatechange = function (){
+            if (this.readyState == 4 && this.status == 200){
                  console.log(this.responseText);
                  console.log(JSON.parse(this.responseText));
 
@@ -148,34 +147,63 @@
                         <tr>
                             <td>${variable.car_name}</td>
                             <td>
-                                <button type="button" 
-                                        class="btn btn-success btn-sm" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#exampleModal"
-                                        data-car_name="${variable.car_name}"
-                                        onclick="showUserInModal(this)">
-                                 View</button>
-                                <button type="button" class="btn btn-info btn-sm">Edit</button>
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getElement(this)">View</button>
+                                <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editCar(this,'${variable.documentId}')">Edit</button>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="deleteElement(this)"  data-del-Id=${variable.documentId}> Delete</button>
                             </td>
                         </tr>`;
                 }
             }
         };
-          xhr.send();
+        xhr.send();
+        function editCar(e,editid){
+            console.log(editid);
+            console.log(e)
+            console.log(e.closest('tr'));
+            console.log(e.closest('tr').querySelector('td').innerHTML);
+
+            document.querySelector('.p_savebtn').innerHTML= "update changes";
+            //document.querySelector('.p_savebtn').addEventListener("click",function(){});
+            document.querySelector('.p_savebtn').addEventListener("click",()=>{
+            //fat arrow method
+            //console.log('yessssssssss');
+            console.log(document.querySelector('.p_carname').value);
+            //update operation using xhr
+            xhr.open('PUT',`${BASE_URL}/api/car-names/${editid}`,true);
+            xhr.setRequestHeader ('Content-Type: application/json'); 
+            xhr.setRequestHeader ('accept: application/json')            
+            let payload = {
+                                            
+                            "data": {
+                                "name": document.querySelector('.p_carname').value  
+                            }
+                        }
+
+                xhr.send(JSON.stringify(payload));
+
+        }); 
+            //lets empty the modal
+            var cn = e.closest('tr').querySelector('td').innerHTML;
+            document.querySelector('.modal-body').innerHTML=`<input type="text"class="form-control p_carname" value="${cn}" />`;
+            
+            
+            
+            
+                
+            }
+        
           //1.function define s one time processes
           function getElements(e){ //e is a formal argument 
             console.log('>>>>>>>>>>>','e');           
-          }
-
+        }
         //Function calling 
         //function calling is a one time process
         function deleteElement(e){//formal argument
             console.log(e);
             const delId = e.getAttribute('data-del-Id');
             //const delId = e.dataset.delId;
-             console.log("Delete Id :" , delId)
-            // Send delete request to Server
+             console.log("Delete Id :" , delId)    
+            //Send delete request to Server
              console.log("I am inside deleteElement Function");
 
             Swal.fire({
@@ -186,29 +214,26 @@
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
-                    if (result.isConfirmed) {
+            }).then((result)=>{
+                    if (result.isConfirmed){
                          xhr.open("DELETE",`${BASE_URL}/api/details/${delId}`); //by string interpolation
                          xhr.send();
                          e.closest('tr').remove();
                          console.log("File Is Deleted....!!!");
-
                          Swal.fire({
                             title: "Deleted!",
                             text: "Your file has been deleted.",
                             icon: "success"
                         });
-                       
                     }
             });
-         
         }
-        function showUserInModal(button) {
+        function showUserInModal(button){
             const car_Name = button.getAttribute('data-car_name');
             document.getElementById('car_name_display').textContent = car_name;
         }
-    
-    
-    
+
 </script>
+
+</body>
 </html>
