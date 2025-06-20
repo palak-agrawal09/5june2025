@@ -36,41 +36,40 @@
             </div>
         </div>
                 
-                <form>
-                    <div class="container">
-                        <div class="row mt-5">
-                            <div class=" col-4 offset-4">
-                                <input autofocus type="text" name="car_name" class="form-control" placeholder="Enter car_name"/>
-                                </br>
-                                <div class="d-grid mt-3">
-                                    <input type="button" class="btn btn-primary" value="regiester"  onclick="getOutput(event)" />
+                    <form>
+                        <div class="container">
+                            <div class="row mt-5">
+                                <div class="col-4 offset-4">
+                                    <input autofocus type="text" name="car_name" class="form-control" placeholder="Enter car name" />
+                                    
+                                    <div class="d-grid mt-3">
+                                        <input type="button" class="btn btn-primary" value="Register" onclick="getOutput(event)" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-                </br>
-                <div class="row mt-5">
-                    <div class=" col-4 offset-4">
-                        <table class=table table-success id="MyTable">
-                            <thead>
+                    </form>
+
+                    <div class="row mt-5">
+                        <div class="col-4 offset-4">
+                            <table class="table table-success" id="MyTable">
+                                <thead>
+                                    <tr>
+                                        <th>Car Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
                                 <tr>
-                                    <th>car_Name</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table table-success" id="MyTable">
->
-                                <tr>
-                                    <td >car1</td>
+                                    <td>car1</td>
                                     <td>
-                                        <input type="hidden" name="name" value="${variable.name}"/>
-                                        <input type="hidden" name="color" value="${variable.color}"/>
-                                        <input type="hidden" name="sitting_capacity" value="${variable.sitting_capacity}"/>
-                                        <input type="hidden" name="brand" value="${variable.brand}"/>
+                                        <input type="hidden" name="name" value="${variable.name}" />
+                                        <input type="hidden" name="color" value="${variable.color}" />
+                                        <input type="hidden" name="sitting_capacity" value="${variable.sitting_capacity}" />
+                                        <input type="hidden" name="brand" value="${variable.brand}" />
                                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getElements(this)">View</button>
-                                        <button type="button" class="btn btn-info btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editCar(this)">Edit</button>
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteElement(this)" data-delid=${variable.documentID}>Delete</button>
+                                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editCar(this)">Edit</button>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteElement(this)" data-delid="${variable.documentID}">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
