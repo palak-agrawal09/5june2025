@@ -9,231 +9,231 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
         <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet"/>
         
-    </head>
-    <body>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">modal parameters</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+            </head>
+            <body>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">modal parameters</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
 
-            <div class="modal-body" style=" height: 200px;overflow-y: scroll;">
-                <ul class="list-group">
-                    <li class="list-group-item">name:-<span id="cname"></span></li>
-                    <li class="list-group-item">color:-<span id="ccolor"></span></li>
-                    <li class="list-group-item">Brand:-<span id="cbrand"></span></li>
-                    <li class="list-group-item">sitting_capacity:-<span id="csitting_capacity"></span></li>
-                </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary p_savebtn">Okay</button>
-            </div>
-            </div>
-        </div>
-        </div>
-        <form method="POST" action= 'http://localhost:1337/api/details'>
-            <div class="container">
-                <div class="row mt-5">
-                    <div class=" col-4 offset-4">
-                        <input autofocus type="text" car_name="name" class="form-control" placeholder="Enter car_name"/>
-                        </br>
-                        <div class="d-grid mt-3">
-                             <input type="button" class="btn btn-primary" value="regiester"  onclick="getOutput(event)" />
-                        </div>
+                    <div class="modal-body" style=" height: 200px;overflow-y: scroll;">
+                        <ul class="list-group">
+                            <li class="list-group-item">name:-<span id="cname"></span></li>
+                            <li class="list-group-item">color:-<span id="ccolor"></span></li>
+                            <li class="list-group-item">Brand:-<span id="cbrand"></span></li>
+                            <li class="list-group-item">sitting_capacity:-<span id="csitting_capacity"></span></li>
+                        </ul>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary p_savebtn">Okay</button>
+                </div>
             </div>
-        </form>
-        </br>
-        <div class="row mt-5">
-            <div class=" col-4 offset-4">
-                <table class=table table-success id="MyTable">
-                    <thead>
-                        <tr>
-                            <th>car_Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody  class="table-success">
-                        <tr>
-                            <td >car1</td>
-                            <td>
-                                <input type="hidden" name="name" value="${variable.name}"/>
-                                <input type="hidden" name="color" value="${variable.color}"/>
-                                <input type="hidden" name="sitting_capacity" value="${variable.sitting_capacity}"/>
-                                <input type="hidden" name="brand" value="${variable.brand}"/>
-                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getElements('this')">View</button>
-                                <button type="button" class="btn btn-info btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editCar(this)">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteElement(this)" data-delid=${variable.documentID}>Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot></tfoot>
-                </table>
-        
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        let BASE_URL ="http://localhost:1337"; //to avoid repeatation of code (DRY Principle)
-        var xhr = new XMLHttpRequest();
-         
+        </div>
+                
+                <form>
+                    <div class="container">
+                        <div class="row mt-5">
+                            <div class=" col-4 offset-4">
+                                <input autofocus type="text" name="car_name" class="form-control" placeholder="Enter car_name"/>
+                                </br>
+                                <div class="d-grid mt-3">
+                                    <input type="button" class="btn btn-primary" value="regiester"  onclick="getOutput(event)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                </br>
+                <div class="row mt-5">
+                    <div class=" col-4 offset-4">
+                        <table class=table table-success id="MyTable">
+                            <thead>
+                                <tr>
+                                    <th>car_Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table table-success" id="MyTable">
+>
+                                <tr>
+                                    <td >car1</td>
+                                    <td>
+                                        <input type="hidden" name="name" value="${variable.name}"/>
+                                        <input type="hidden" name="color" value="${variable.color}"/>
+                                        <input type="hidden" name="sitting_capacity" value="${variable.sitting_capacity}"/>
+                                        <input type="hidden" name="brand" value="${variable.brand}"/>
+                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getElements(this)">View</button>
+                                        <button type="button" class="btn btn-info btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editCar(this)">Edit</button>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteElement(this)" data-delid=${variable.documentID}>Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot></tfoot>
+                        </table>
+                
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                let BASE_URL ="http://localhost:1337"; //to avoid repeatation of code (DRY Principle)
+                var xhr = new XMLHttpRequest();
+                
+                
 
-        // Function definition - called on form submission
-        function getOutput(e) {
-            e.preventDefault(); // Prevent page reloading
+                // Function definition - called on form submission
+                function getOutput(e) {
+                    e.preventDefault(); // Prevent page reloading
 
-             console.log("car_stored");
-             console.log(e.target.closest('form')); // Traversing up to the form
-             console.log(e.target.closest('form').querySelector('input[name="car_name"]').value); // Traversing down to get value
+                    console.log("car_stored");
+                    console.log(e.target.closest('form')); // Traversing up to the form
+                    console.log(e.target.closest('form').querySelector('input[name="car_name"]').value); // Traversing down to get value
 
-            // Get the car_name value
-            let car_name = e.target.closest('form').querySelector('input[name="car_name"]').value;
+                    // Get the car_name value
+                    let car_name = e.target.closest('form').querySelector('input[name="car_name"]').value;
 
-            // Convert JS object to JSON string
-            let data = JSON.stringify({
-                data: {
-                    "car_Name": `${name}`
+                    // Convert JS object to JSON string
+                    let payload = {
+                            "data": {
+                                "name": car_name
+                            }
+                            };
+                            payload = JSON.stringify(payload);
+                            
+                     
+                    // Open POST request to local Strapi endpoint
+                    xhr.open("POST", `${BASE_URL}/api/cars`, true);
+                    xhr.setRequestHeader('Accept','application/json');
+                    xhr.setRequestHeader('Content-Type','application/json');
+
+                    // Set content type header
+
+                    xhr.onreadystatechange = function () {
+                        if (this.readyState == 4 && (this.status == 201)) {
+                            Swal.fire({
+                                title: "Your Data is Stored Successfully!",
+                                text: "You clicked the button!",
+                                icon: "success"
+                            });
+                        }
+                    };
+                    // Send data to Strapi
+                    xhr.send(payload);
+
+                    console.log(payload);
+                    console.log("cars Stored successfully");
+                } 
+            </script>
+            <script>
+                // Open GET request to local Strapi endpoint 
+
+                xhr.open("GET", `${BASE_URL}/api/cars`, true); //by string Interpolation
+
+                xhr.onreadystatechange = function (){
+                    if (this.readyState == 4 && this.status == 200){
+                        console.log(this.responseText);
+                        console.log(JSON.parse(this.responseText));
+
+                        let json = JSON.parse(this.responseText);
+
+                        // Access the table by ID
+                        let tbody = document.getElementById('MyTable').querySelector('tbody');
+                        console.log(tbody);
+                        tbody.innerHTML = '';
+
+                        // Populate table with data
+                        for (let variable of json.data) {
+                            console.log(variable.car_Name);
+
+                            tbody.innerHTML += `
+                                <tr>
+                                    <td>${variable.car_name}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getElement(this)">View</button>
+                                        <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editCar(this,'${variable.documentId}')">Edit</button>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteElement(this)"  data-del-Id=${variable.documentId}> Delete</button>
+                                    </td>
+                                </tr>`;
+                        }
+                    }
+                };
+                xhr.send();
+                function editCar(e,editid){
+                    console.log(editid);
+                    console.log(e)
+                    console.log(e.closest('tr'));
+                    console.log(e.closest('tr').querySelector('td').innerHTML);
+
+                    document.querySelector('.p_savebtn').innerHTML= "update changes";
+                    //document.querySelector('.p_savebtn').addEventListener("click",function(){});
+                    document.querySelector('.p_savebtn').addEventListener("click",()=>{
+                    //fat arrow method
+                    //console.log('yessssssssss');
+                    console.log(document.querySelector('.p_carname').value);
+                    //update operation using xhr
+                    xhr.open('PUT',`${BASE_URL}/api/car-names/${editid}`,true);
+                    xhr.setRequestHeader ('Content-Type: application/json'); 
+                    xhr.setRequestHeader ('accept: application/json')            
+                    let payload = {
+                                                    
+                                    "data": {
+                                        "name": document.querySelector('.p_carname').value  
+                                    }
+                                }
+
+                        xhr.send(JSON.stringify(payload));
+
+                }); 
+                    //lets empty the modal
+                    var cn = e.closest('tr').querySelector('td').innerHTML;
+                    document.querySelector('.modal-body').innerHTML=`<input type="text"class="form-control p_carname" value="${cn}" />`;
+                    }
+                
+                //1.function define s one time processes
+                function getElements(e){ //e is a formal argument 
+                    console.log('>>>>>>>>>>>','e');           
                 }
-            });
+                //Function calling 
+                //function calling is a one time process
+                function deleteElement(e){//formal argument
+                    console.log(e);
+                    const delId = e.getAttribute('data-del-Id');
+                    //const delId = e.dataset.delId;
+                    console.log("Delete Id :" , delId)    
+                    //Send delete request to Server
+                    console.log("I am inside deleteElement Function");
 
-            // Open POST request to local Strapi endpoint
-            xhr.open("POST", `${BASE_URL}/api/details`, true);
-
-             // Set content type header
-
-            xhr.onreadystatechange = function () {
-                if (this.readyState == 4 && (this.status == 201 || this.status == 200)) {
                     Swal.fire({
-                        title: "Your Data is Stored Successfully!",
-                        text: "You clicked the button!",
-                        icon: "success"
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result)=>{
+                            if (result.isConfirmed){
+                                xhr.open("DELETE",`${BASE_URL}/api/cars/${delId}`); //by string interpolation
+                                xhr.send();
+                                e.closest('tr').remove();
+                                console.log("File Is Deleted....!!!");
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                });
+                            }
                     });
                 }
-            };
-            // Send data to Strapi
-            xhr.send(data);
-
-             console.log(data);
-             console.log("cars Stored successfully");
-        } 
-    </script>
-    <script>
-        // Open GET request to local Strapi endpoint 
-
-        xhr.open("GET", `${BASE_URL}/api/details`, true); //by string Interpolation
-
-        xhr.onreadystatechange = function (){
-            if (this.readyState == 4 && this.status == 200){
-                 console.log(this.responseText);
-                 console.log(JSON.parse(this.responseText));
-
-                let json = JSON.parse(this.responseText);
-
-                // Access the table by ID
-                let tbody = document.getElementById('MyTable').querySelector('tbody');
-                 console.log(tbody);
-                tbody.innerHTML = '';
-
-                // Populate table with data
-                for (let variable of json.data) {
-                     console.log(variable.car_Name);
-
-                    tbody.innerHTML += `
-                        <tr>
-                            <td>${variable.car_name}</td>
-                            <td>
-                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getElement(this)">View</button>
-                                <button type="button" class="btn btn-info btn-sm"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editCar(this,'${variable.documentId}')">Edit</button>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteElement(this)"  data-del-Id=${variable.documentId}> Delete</button>
-                            </td>
-                        </tr>`;
+                function showUserInModal(button){
+                    const car_Name = button.getAttribute('data-car_name');
+                    document.getElementById('car_name_').textContent = car_name;
                 }
-            }
-        };
-        xhr.send();
-        function editCar(e,editid){
-            console.log(editid);
-            console.log(e)
-            console.log(e.closest('tr'));
-            console.log(e.closest('tr').querySelector('td').innerHTML);
 
-            document.querySelector('.p_savebtn').innerHTML= "update changes";
-            //document.querySelector('.p_savebtn').addEventListener("click",function(){});
-            document.querySelector('.p_savebtn').addEventListener("click",()=>{
-            //fat arrow method
-            //console.log('yessssssssss');
-            console.log(document.querySelector('.p_carname').value);
-            //update operation using xhr
-            xhr.open('PUT',`${BASE_URL}/api/car-names/${editid}`,true);
-            xhr.setRequestHeader ('Content-Type: application/json'); 
-            xhr.setRequestHeader ('accept: application/json')            
-            let payload = {
-                                            
-                            "data": {
-                                "name": document.querySelector('.p_carname').value  
-                            }
-                        }
-
-                xhr.send(JSON.stringify(payload));
-
-        }); 
-            //lets empty the modal
-            var cn = e.closest('tr').querySelector('td').innerHTML;
-            document.querySelector('.modal-body').innerHTML=`<input type="text"class="form-control p_carname" value="${cn}" />`;
-            
-            
-            
-            
-                
-            }
-        
-          //1.function define s one time processes
-          function getElements(e){ //e is a formal argument 
-            console.log('>>>>>>>>>>>','e');           
-        }
-        //Function calling 
-        //function calling is a one time process
-        function deleteElement(e){//formal argument
-            console.log(e);
-            const delId = e.getAttribute('data-del-Id');
-            //const delId = e.dataset.delId;
-             console.log("Delete Id :" , delId)    
-            //Send delete request to Server
-             console.log("I am inside deleteElement Function");
-
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-            }).then((result)=>{
-                    if (result.isConfirmed){
-                         xhr.open("DELETE",`${BASE_URL}/api/details/${delId}`); //by string interpolation
-                         xhr.send();
-                         e.closest('tr').remove();
-                         console.log("File Is Deleted....!!!");
-                         Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
-                    }
-            });
-        }
-        function showUserInModal(button){
-            const car_Name = button.getAttribute('data-car_name');
-            document.getElementById('car_name_display').textContent = car_name;
-        }
-
-</script>
-
-</body>
+            </script>
+            </body>
 </html>
